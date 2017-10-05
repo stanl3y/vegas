@@ -19,7 +19,7 @@ class OutcomeTest(unittest.TestCase):
 
   def test_winAmount(self):
     """Check that winnings are calculated correctly."""
-    outcome = Outcome("Five numbers", 6)
+    outcome = Outcome("Sample outcome", 6)
     self.assertTrue(math.isclose(outcome.winAmount(3.2), 19.2))
 
   def test_equality(self):

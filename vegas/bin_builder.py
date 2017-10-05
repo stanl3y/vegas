@@ -1,6 +1,6 @@
-from .outcome import Outcome
+from .outcomes import \
+  Straight, Split, Street, Corner, FiveNumbers, Line, Dozen, Column, EvenMoney
 from .bin import Bin
-from .roulette import Roulette
 
 
 class BinBuilder(object):
@@ -39,76 +39,76 @@ class BinBuilder(object):
 
   def prepare_straight_outcomes(self):
     """Populate TempBins with StraightOutcomes."""
-    self.assign_outcome(0, Outcome("Straight 0", Roulette.StraightBet))
-    self.assign_outcome(37, Outcome("Straight 00", Roulette.StraightBet))
+    self.assign_outcome(0, Straight(0))
+    self.assign_outcome(37, Straight("00"))
     for i in range(1, 37):
-      self.assign_outcome(i, Outcome("Straight {}".format(i), Roulette.StraightBet))
+      self.assign_outcome(i, Straight(i))
 
   def prepare_split_outcomes(self):
     """Populate TempBins with SplitOutcomes."""
 
-    def create_split_outcome(num1, num2):
+    def assign_split_outcome(num1, num2):
       """Create and assign a SplitOutcome based on the two split-Bins."""
-      outcome = Outcome("Split {}-{}".format(num1, num2), Roulette.SplitBet)
+      outcome = Split(num1, num2)
       for bin in [num1, num2]:
         self.assign_outcome(bin, outcome)
 
     # generate vertical splits
     for num in range(1, 34):
-      create_split_outcome(num, num+3)
+      assign_split_outcome(num, num+3)
     # generate horizontal splits
     for row in range(12):
-      create_split_outcome(3*row+1, 3*row+2)
-      create_split_outcome(3*row+2, 3*row+3)
+      assign_split_outcome(3*row+1, 3*row+2)
+      assign_split_outcome(3*row+2, 3*row+3)
 
   def prepare_street_outcomes(self):
     """Populate TempBins with StreetOutcomes."""
     for row in range(12):
-      outcome = Outcome("Street {}".format(row+1), Roulette.StreetBet)
+      outcome = Street(3*row+1)
       for bin in [3*row+1, 3*row+2, 3*row+3]:
         self.assign_outcome(bin, outcome)
 
   def prepare_corner_outcomes(self):
     """Populate TempBins with CornerOutcomes."""
 
-    def create_corner_outcome(upper_left):
+    def assign_corner_outcome(upper_left):
       """Create and assign a CornerOutcome based on its upper_left corner."""
       nums = [upper_left, upper_left+1, upper_left+3, upper_left+4]
-      outcome = Outcome("Corner {}-{}-{}-{}".format(*nums), Roulette.CornerBet)
+      outcome = Corner(upper_left)
       for bin in nums:
         self.assign_outcome(bin, outcome)
 
     for row in range(11):
-      create_corner_outcome(3*row + 1)
-      create_corner_outcome(3*row + 2)
+      assign_corner_outcome(3*row + 1)
+      assign_corner_outcome(3*row + 2)
 
   def prepare_five_numbers(self):
     """Populate TempBins with the FiveNumbersOutcome."""
-    five_numbers = Outcome("Five numbers", Roulette.FiveNumbers)
+    five_numbers = FiveNumbers()
     for bin in [37, 0, 1, 2, 3]:
       self.assign_outcome(bin, five_numbers)
 
   def prepare_line_outcomes(self):
     """Populate TempBins with LineOutcomes."""
     for row in range(11):
-      outcome = Outcome("Line {}-{}".format(row+1, row+2), Roulette.LineBet)
+      outcome = Line(3*row+1)
       for bin in range(3*row+1, 3*row+7):
         self.assign_outcome(bin, outcome)
 
   def prepare_dozen_outcomes(self):
     """Populate TempBins with DozenOutcomes."""
-    dozen1 = [Outcome("First 12", Roulette.EvenMoneyBet), range(1, 13)]
-    dozen2 = [Outcome("Second 12", Roulette.EvenMoneyBet), range(13, 25)]
-    dozen3 = [Outcome("Third 12", Roulette.EvenMoneyBet), range(25, 37)]
-    for outcome, bins in [dozen1, dozen2, dozen3]:
+    dozen1_pairs = [range(1, 13), Dozen(1)]
+    dozen2_pairs = [range(13, 25), Dozen(2)]
+    dozen3_pairs = [range(25, 37), Dozen(3)]
+    for bins, outcome in [dozen1_pairs, dozen2_pairs, dozen3_pairs]:
       for bin in bins:
         self.assign_outcome(bin, outcome)
 
   def prepare_column_outcomes(self):
     """Populate TempBins with ColumnOutcomes."""
-    column1 = Outcome("Column 1", Roulette.ColumnBet)
-    column2 = Outcome("Column 2", Roulette.ColumnBet)
-    column3 = Outcome("Column 3", Roulette.ColumnBet)
+    column1 = Column(1)
+    column2 = Column(2)
+    column3 = Column(3)
     for row in range(12):
       self.assign_outcome(3*row+1, column1)
       self.assign_outcome(3*row+2, column2)
@@ -116,16 +116,16 @@ class BinBuilder(object):
 
   def prepare_range_outcomes(self):
     """Populate TempBins with Low/High Outcomes."""
-    low = Outcome("Low", Roulette.EvenMoneyBet)
-    high = Outcome("High", Roulette.EvenMoneyBet)
+    low = EvenMoney("Low")
+    high = EvenMoney("High")
     for outcome, bins in [[low, range(1, 19)], [high, range(19, 37)]]:
       for bin in bins:
         self.assign_outcome(bin, outcome)
 
   def prepare_colour_outcomes(self):
     """Populate TempBins with Red/Black Outcomes."""
-    red = Outcome("Red", Roulette.EvenMoneyBet)
-    black = Outcome("Black", Roulette.EvenMoneyBet)
+    red = EvenMoney("Red")
+    black = EvenMoney("Black")
     red_bins = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
     black_bins = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]
     for outcome, bins in [[red, red_bins], [black, black_bins]]:
@@ -134,8 +134,8 @@ class BinBuilder(object):
 
   def prepare_parity_outcomes(self):
     """Populate TempBins with Even/Odd Outcomes."""
-    even = Outcome("Even", Roulette.EvenMoneyBet)
-    odd = Outcome("Odd", Roulette.EvenMoneyBet)
+    even = EvenMoney("Even")
+    odd = EvenMoney("Odd")
     for i in range(18):
       self.assign_outcome(2*i+1, odd)
       self.assign_outcome(2*i+2, even)

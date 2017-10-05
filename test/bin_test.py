@@ -3,17 +3,18 @@ import unittest
 from context import vegas
 from vegas.bin import Bin
 from vegas.outcome import Outcome
+from vegas.outcomes import Straight, Corner, EvenMoney
 
 
 class BinTest(unittest.TestCase):
   """Tests for the Bin class."""
 
   def setUp(self):
-    self.straight1 = Outcome("Straight 1", 35)
-    self.straight2 = Outcome("Straight 2", 35)
-    self.red = Outcome("Red", 1)
-    self.black = Outcome("Black", 1)
-    self.corner_bet = Outcome("Corner 1245", 8)
+    self.straight1 = Straight(1)
+    self.straight2 = Straight(2)
+    self.red = EvenMoney("Red")
+    self.black = EvenMoney("Black")
+    self.corner_bet = Corner(1)
 
     self.bin1 = Bin({self.straight1, self.red, self.corner_bet})
     self.bin2 = Bin({self.straight2, self.black, self.corner_bet})

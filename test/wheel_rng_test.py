@@ -2,6 +2,7 @@ import unittest
 
 from context import vegas
 from vegas.outcome import Outcome
+from vegas.outcomes import Straight
 from vegas.wheel import Wheel
 
 
@@ -14,8 +15,8 @@ class GIVEN_Wheel_WHEN_Next_THEN_random_choice(unittest.TestCase):
 
   def test_rng(self):
     """Check that Wheel.next() returns a 'random' Bin."""
-    straight3 = Outcome("Straight 3", 35)
-    straight5 = Outcome("Straight 5", 35)
+    straight3 = Straight(3)
+    straight5 = Straight(5)
     current_bin = self.wheel.next()  # Bin 3
     self.assertIn(straight3, current_bin)
     current_bin = self.wheel.next()  # Bin 5
