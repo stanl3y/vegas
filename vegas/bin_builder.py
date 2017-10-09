@@ -7,8 +7,9 @@ class BinBuilder(object):
   """Builder: populate Bins of a Wheel with Outcomes."""
 
   def __init__(self):
-    """Constructor: assign Outcomes to a collection of TempBins."""
+    """Constructor: assign Outcomes to TempBins, keeping track of them."""
     self.temp_bins = tuple(set() for i in range(38))
+    self.temp_outcomes = {}
     self.prepare_temp_bins()
 
   def buildBins(self):
@@ -32,8 +33,9 @@ class BinBuilder(object):
     self.prepare_parity_outcomes()
 
   def assign_outcome(self, bin, outcome):
-    """Assign a given Outcome to a given Bin."""
+    """Assign a given Outcome to a given Bin, and remember it."""
     self.temp_bins[bin].add(outcome)
+    self.temp_outcomes[outcome.name] = outcome
 
   ################### Prepare Individual Bets ################################
 

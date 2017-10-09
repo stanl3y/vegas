@@ -13,7 +13,9 @@ class Wheel(object):
       37 ~ Bin 00
       i  ~ Bin i  for 1 <= i <= 36
     """
-    self.bins = BinBuilder().buildBins()
+    bin_builder = BinBuilder()
+    self.bins = bin_builder.buildBins()
+    self.all_outcomes = bin_builder.temp_outcomes
     self.rng = random.Random()
 
   def get(self, bin_ind):
@@ -23,3 +25,7 @@ class Wheel(object):
   def next(self):
     """Roulette spin: choose a random Bin of the Wheel."""
     return self.rng.choice(self.bins)
+
+  def getOutcome(self, name):
+    """The string-to-Outcome mapping."""
+    return self.all_outcomes[name]
