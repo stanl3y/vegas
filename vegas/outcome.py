@@ -26,4 +26,4 @@ class Outcome(object):
 
   def __repr__(self):
     """Return a machine readable representation."""
-    return "{class_}({name!r}, {odds!r})".format(class_=type(self).__name__, **vars(self))
+    return "{class_}({name!r}, {odds!r})".format(class_=Outcome.__name__, **vars(self))
