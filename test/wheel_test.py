@@ -1,6 +1,5 @@
 import unittest
 
-from context import vegas
 from vegas.wheel import Wheel
 from vegas.outcomes import Straight, Split, Street, EvenMoney
 

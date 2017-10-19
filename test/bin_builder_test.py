@@ -1,6 +1,5 @@
 import unittest
 
-from context import vegas
 from vegas.bin_builder import BinBuilder
 from vegas.outcome import Outcome
 from vegas.outcomes import \

@@ -1,5 +1,4 @@
 import unittest
-from context import vegas
 from vegas.invalid_bet import InvalidBet
 
 

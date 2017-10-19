@@ -1,5 +1,4 @@
 import unittest
-from context import vegas
 from vegas.table import Table
 from vegas.outcomes import EvenMoney, Split
 from vegas.bet import Bet

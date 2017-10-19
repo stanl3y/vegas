@@ -1,6 +1,5 @@
 import unittest
 
-from context import vegas
 from vegas.bin import Bin
 from vegas.outcome import Outcome
 from vegas.outcomes import Straight, Corner, EvenMoney

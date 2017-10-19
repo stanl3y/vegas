@@ -3,3 +3,5 @@ __pycache__/
 
 progress_log.md
 .DS_Store
+
+.ignore

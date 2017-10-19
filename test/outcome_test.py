@@ -1,7 +1,6 @@
 import unittest
 import math
 
-from context import vegas
 from vegas.outcome import Outcome
 
 

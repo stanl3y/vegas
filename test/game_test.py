@@ -1,6 +1,5 @@
 import unittest
 from unittest.mock import Mock, MagicMock
-from context import vegas
 from vegas.game import Game
 from vegas.table import Table
 from vegas.bet import Bet

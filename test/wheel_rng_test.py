@@ -1,7 +1,6 @@
 from unittest.mock import Mock
 import unittest
 
-from context import vegas
 from vegas.outcomes import Straight
 from vegas.wheel import Wheel
 

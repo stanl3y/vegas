@@ -1,5 +1,4 @@
 import unittest
-from context import vegas
 from vegas.outcomes import \
   Straight, Split, Street, Corner, FiveNumbers, Line, Dozen, Column, EvenMoney
 

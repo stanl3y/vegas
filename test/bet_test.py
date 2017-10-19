@@ -1,6 +1,5 @@
 import unittest
 
-from context import vegas
 from vegas.bet import Bet
 from vegas.outcome import Outcome
 from vegas.outcomes import EvenMoney
