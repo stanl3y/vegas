@@ -23,6 +23,13 @@ class GameTest(unittest.TestCase):
     self.assertEqual(self.game.table, self.table)
     self.assertEqual(self.game.wheel, self.mock_wheel)
 
+  def test_player_playing(self):
+    """Game should not run, if Player not playing."""
+    player = Mock()
+    player.playing.return_value = False
+    self.game.cycle(player)
+    player.placeBets.assert_not_called()
+
   def test_game_cycle(self):
     """Each round of roulette should follow a given procedure."""
     # initialize
@@ -31,6 +38,7 @@ class GameTest(unittest.TestCase):
     game = Game(mock_table, self.mock_wheel)
     # test
     game.cycle(player)
+    player.playing.assert_called()
     player.placeBets.assert_called()
     game.table.isValid.assert_called()
     game.wheel.next.assert_called()

@@ -18,6 +18,8 @@ class Game(object):
           player.lose(bet)
       self.table.bets = []
 
+    if not player.playing():
+      return
     player.placeBets()
     self.table.isValid()
     winning_bin = self.wheel.next()
