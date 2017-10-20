@@ -26,7 +26,7 @@ class TableTest(unittest.TestCase):
 
   def test_iter(self):
     """The __iter__ method should return an iterable of the Bets."""
-    bets = [Bet(i, self.outcome) for i in range(3)]
+    bets = [Bet(i+1, self.outcome) for i in range(3)]
     for bet in bets:
       self.table.placeBet(bet)
     iter_bets = self.table.__iter__()
@@ -68,9 +68,9 @@ class TableTest(unittest.TestCase):
 
   def test_table_isValid_minimum_bet_amount(self):
     """Each Bet should be greater or equal to the Table minimum."""
-    table = Table(1, 1000)
+    table = Table(10, 1000)
     # invalid Bet (amountBet less than Table minimum)
-    table.placeBet(Bet(0, EvenMoney("Black")))
+    table.placeBet(Bet(1, EvenMoney("Black")))
     self.assertRaises(InvalidBet, table.isValid)
 
   def test_table_isValid_total_table_limit(self):

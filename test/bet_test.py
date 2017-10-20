@@ -19,8 +19,9 @@ class BetTest(unittest.TestCase):
     self.assertEqual(self.bet.outcome, self.outcome)
 
   def test_amount_bet(self):
-    """Check that the amountBet is nonnegative."""
+    """Check that the amountBet is positive."""
     self.assertRaises(ValueError, Bet, *(-1, self.outcome))
+    self.assertRaises(ValueError, Bet, *(0, self.outcome))
 
   def test_str(self):
     """Check the human-readable representation."""

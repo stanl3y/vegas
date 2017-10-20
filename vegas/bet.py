@@ -3,7 +3,7 @@ class Bet(object):
 
   def __init__(self, amount, outcome):
     """Constructor."""
-    if amount < 0:
+    if not amount > 0:
       raise ValueError
     self.amountBet = amount
     self.outcome = outcome
