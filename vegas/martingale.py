@@ -20,7 +20,7 @@ class Martingale(Player):
   def placeBets(self):
     """Place bets according to the Martingale strategy."""
     bet = Bet(self.current_bet_amount(), self.black)
-    self.table.placeBet(bet)
+    self._place_bet(bet)
 
   def win(self, bet):
     """Process a Bet that was won."""
@@ -33,3 +33,8 @@ class Martingale(Player):
     super().lose(bet)
     self.lossCount += 1
     self.betMultiple *= 2
+
+  def reset(self):
+    """Reset the Player for the next Session in Simulation."""
+    self.lossCount = 0
+    self.betMultiple = 1

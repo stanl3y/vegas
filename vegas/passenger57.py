@@ -13,4 +13,4 @@ class Passenger57(Player):
   def placeBets(self):
     """Place bets according to the Passenger57 strategy."""
     bet = Bet(1, self.black)
-    self.table.placeBet(bet)
+    self._place_bet(bet)
